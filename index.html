@@ -20,6 +20,8 @@
             font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #f5f5f5;
+            margin: 0;
+            height: 100vh;
         }
         ::-webkit-scrollbar {
             width: 6px;
@@ -49,5 +51,7 @@
 </head>
 <body>
     <div id="root"></div>
+    <!-- 关键修复：添加入口文件脚本引用 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
