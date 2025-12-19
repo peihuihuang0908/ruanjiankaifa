@@ -1,22 +1,41 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// 确保 DOM 加载完成后挂载
-const rootElement = document.getElementById('root');
-if (!rootElement) {
-  console.error("StyleVision Engine: 找不到 root 节点，渲染中止。");
+/**
+ * StyleVision Pro 入口引导
+ * 确保 DOM 结构完整后再初始化 React 根节点
+ */
+const initApp = () => {
+  const container = document.getElementById('root');
+  
+  if (!container) {
+    console.error("Fatal Error: Root container not found");
+    return;
+  }
+
+  try {
+    const root = ReactDOM.createRoot(container);
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
+    console.info("StyleVision Pro: UI Core Mounted Successfully");
+  } catch (err) {
+    console.error("StyleVision Pro: Mount Failed", err);
+  }
+};
+
+// 监听 DOM 加载状态
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
 } else {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
+  initApp();
 }
 
-// 捕获异步渲染中的未处理错误
-window.addEventListener('unhandledrejection', (event) => {
-  console.warn('捕获到异步异常:', event.reason);
-});
+// 全局异常捕捉，防止渲染静默失败
+window.onerror = (msg, url, line) => {
+  console.error(`Runtime Error: ${msg} at ${url}:${line}`);
+  return false;
+};
