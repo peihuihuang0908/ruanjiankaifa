@@ -1,0 +1,7 @@
+{
+  "name": "StyleVision Pro 专业AI时尚拍摄引擎",
+  "description": "集成时尚审美与专业摄影技术的AI换装系统，支持高保真服装替换、模特属性编辑及多角度一致性生成。",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
